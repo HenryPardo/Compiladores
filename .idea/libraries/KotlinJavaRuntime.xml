@@ -1,0 +1,29 @@
+<component name="libraryTable">
+  <library name="KotlinJavaRuntime">
+    <ANNOTATIONS>
+      <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib.jar!/" />
+      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-reflect.jar!/" />
+      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-test.jar!/" />
+      <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+      <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+    </JAVADOC>
+    <NATIVE>
+      <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+    </NATIVE>
+    <SOURCES>
+      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/" />
+      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-reflect-sources.jar!/" />
+      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-test-sources.jar!/" />
+      <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+      <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" type="SOURCES" />
+  </library>
+</component>
