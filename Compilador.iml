@@ -51,6 +51,8 @@
           <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
         </SOURCES>
         <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" type="SOURCES" />
         <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
@@ -78,5 +80,6 @@
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.0-RC" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0-RC" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test:1.6.0-RC" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
