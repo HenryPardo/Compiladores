@@ -3,8 +3,8 @@ package co.edu.uniquindio.compiladores.sintaxis
 import co.edu.uniquindio.compiladores.lexico.Token
 import javafx.scene.control.TreeItem
 
-class Variable(var tipoDato: Token, var nombre: Token) {
-    fun getArbolVisual(): TreeItem<String>
+class Variable(var tipoDato: Token, var nombre: Token): Sentencia() {
+    override fun getArbolVisual(): TreeItem<String>
     {
         var root = TreeItem("Variable")
         root.children.add(TreeItem("Tipo dato: " +tipoDato.lexema))

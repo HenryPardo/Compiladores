@@ -45,16 +45,17 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
                     var nombreFuncion = tokenActual
                     obtenerSiguienteToken()
                     if(tokenActual.categoria == Categoria.PARENTESIS_IZQ){
-                        obtenerSiguienteToken()
                         var listaParametros = esListaParametros()
-                        if(listaParametros != null){
-                            obtenerSiguienteToken()
-                        }
+                        print("\n ----------------------------->"+listaParametros.size)
+
                         if(tokenActual.categoria == Categoria.PARENTESIS_DER){
                             obtenerSiguienteToken()
                             if(tokenActual.categoria == Categoria.LLAVE_IZQ) {
                                 obtenerSiguienteToken()
                                 var listaSencias = esListaSentencias()
+                                if(listaSencias.size > 0){
+                                    obtenerSiguienteToken()
+                                }
                                 if (tokenActual.categoria == Categoria.LLAVE_DER) {
                                     return Funcion(tipoRetorno,nombreFuncion, listaParametros, listaSencias)
                                 }
@@ -130,7 +131,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
      * <Impresion> | <CicloWhile> | <CicloFor> | <Retorno> | <Lectura>  | <InvocacionFuncion> | <ExpresionSentencia>
      */
     fun esSentencia(): Sentencia?{
-        var sentencia:Sentencia? =  esDecision()
+        var sentencia:Sentencia? =  esDeclaracionMutable()
         if(sentencia != null){
             return sentencia
         }
@@ -162,10 +163,12 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
         if(sentencia != null){
             return sentencia
         }
-        sentencia = esExpresionSentencia()
+        sentencia = esDecision()
         if(sentencia != null){
             return sentencia
         }
+
+
         return sentencia
     }
 
@@ -174,21 +177,24 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
     }
 
     /**
-     * <InvocacionFuncion> ::= identificador”(“ [<ListaArgumentos>]”)” finSentencia
+     * <InvocacionFuncion> ::= identificador”(“ [<ListaArgumentos>]”)”
      */
     fun esInvocacionFuncion(): InvocacionFuncion?{
+        print("a - "+tokenActual.lexema)
         if(tokenActual.categoria == Categoria.IDENTIFICADOR){
             var identificador = tokenActual
             obtenerSiguienteToken()
+            print("b - "+tokenActual.lexema)
             if(tokenActual.categoria == Categoria.PARENTESIS_IZQ){
                 obtenerSiguienteToken()
+                print("c - "+tokenActual.lexema)
                 var listaArgumentos =  esListaArgumentos()
-                if(tokenActual.categoria == Categoria.PARENTESIS_DER){
+                if(listaArgumentos != null){
                     obtenerSiguienteToken()
-                    if(tokenActual.categoria == Categoria.FINAL){
-                        return InvocacionFuncion(identificador,listaArgumentos)
-                    }
-
+                }
+                if(tokenActual.categoria == Categoria.PARENTESIS_DER){
+                    print('d')
+                    return InvocacionFuncion(identificador,listaArgumentos)
                 }
 
             }
@@ -223,13 +229,13 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
      */
     private fun esLectura(): Lectura?{
 
-     //   if(tokenActual.categoria == Categoria.PALABRA_RESERVADA_LECTURA){ FALTA EN EL PRIMER PROYECTO
+        if(tokenActual.categoria == Categoria.PALABRA_RESERVADA_LECTURA){
             obtenerSiguienteToken()
             var variable = esVariable()
             if(variable != null){
-           //     return Lectura(variable)
+             return Lectura(variable)
             }
-     //   }
+        }
         return null
     }
 
@@ -237,11 +243,12 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
      * <Retorno> ::= RETURNS  [<Expresion>] FinSentencia
      */
     private fun esRetorno(): Retorno?{
-      //  if(tokenActual.categoria == Categoria.PALABRA_RESERVADA_RETORNO){ FALTA PRIMERA ENTREGA
+        if(tokenActual.categoria == Categoria.PALABRA_RESERVADA_RETORNO){
+
             obtenerSiguienteToken()
             var expresion = esExpresion()
-            //return Retorno(expresion)
-      //  }
+            return Retorno(expresion)
+        }
         return null
     }
 
@@ -363,7 +370,8 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
      * <Impresion> ::= WRITE <Expresion> | identificador FinSentencia
      */
     fun esImpresion(): Impresion?{
-       // if(tokenActual.categoria == Categoria.PALABRA_RESERVADA_IMPRESION){ FALTA
+
+        if(tokenActual.categoria == Categoria.PALABRA_RESERVADA_IMPRIMIR){
             obtenerSiguienteToken()
 
             if(tokenActual.categoria == Categoria.IDENTIFICADOR){
@@ -384,8 +392,12 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
                 }
             }
 
-       // }
+        }
+
+
         return null
+
+
     }
 
     /**
@@ -414,6 +426,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
             obtenerSiguienteToken()
             var variable = esVariable()
             if(variable != null){
+                obtenerSiguienteToken()
                 return variable
             }
         }
@@ -436,7 +449,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
         if(expresion != null){
             return expresion
         }
-        expresion = esExpresionCadena()
+    expresion = esExpresionCadena()
         if(expresion != null){
             return expresion
         }
@@ -502,7 +515,68 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
      * <ExpresionAritmetica> ::= <ExpresionAritmetica> operadorAritmetico <ExpresionAritmetica> | "("<ExpresionAritmetica>")" | <ValorNumerico>
      */
     fun esExpresionAritmetica(): ExpresionAritmetica?{
-       // if(tokenActual.ca)
+        if(tokenActual.categoria == Categoria.PARENTESIS_IZQ){
+            obtenerSiguienteToken()
+
+            val exp1 = esExpresionAritmetica()
+
+            if(exp1 != null){
+                if(tokenActual.categoria == Categoria.PARENTESIS_DER){
+                    obtenerSiguienteToken()
+                    if(tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_DIVISION ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_RESTA ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_SUMA ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_MODULO ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_MULTIPLICACION){
+                        val operador = tokenActual;
+                        obtenerSiguienteToken()
+                        val exp2 = esExpresionAritmetica()
+                        if(exp2 != null){
+                            return ExpresionAritmetica(exp1, operador, exp2)
+                        }
+                    }else{
+                        return ExpresionAritmetica(exp1)
+                    }
+                }
+            }
+        }else{
+            val valor = esValorNumerico()
+            if(valor != null){
+                obtenerSiguienteToken()
+
+                    if(tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_DIVISION ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_RESTA ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_SUMA ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_MODULO ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_MULTIPLICACION){
+                        val operador = tokenActual;
+                        obtenerSiguienteToken()
+                        val exp2 = esExpresionAritmetica()
+                        if(exp2 != null){
+                            return ExpresionAritmetica(valor, operador, exp2)
+                        }
+                    }else{
+                        return ExpresionAritmetica(valor)
+                    }
+
+            }
+        }
+
+        return null
+    }
+    fun esValorNumerico(): ValorNumerico?{
+        var signo : Token? = null
+        if(tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_SUMA ||
+            tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_RESTA){
+            obtenerSiguienteToken()
+            signo = tokenActual
+        }
+        if(tokenActual.categoria == Categoria.ENTERO ||
+            tokenActual.categoria == Categoria.DECIMAL ||
+            tokenActual.categoria == Categoria.IDENTIFICADOR){
+            val termino = tokenActual
+            return ValorNumerico(signo,termino)
+        }
         return null
     }
     /**
@@ -536,7 +610,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
                                     }
                                 }
                                 }else{
-                                return Decision(expresionLogica,listaSentenciasSI, ArrayList<Sentencia>())
+                                    return Decision(expresionLogica,listaSentenciasSI, ArrayList<Sentencia>())
                                 }
                             }
                         }
@@ -548,36 +622,86 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
     }
 
     /**
-     *<ExpresionLogica> ::= <ExpresionLogica> operadorLogico <ExpresionLogica> | "("<ExpresionLogica>")" | <ExpresionRelacional>
+     *<ExpresionLogica> ::= <ExpresionLogica> operadorLogico <ExpresionLogica> |
+     * ("<ExpresionLogica>")" | <ExpresionRelacional>
 
      */
     fun esExpresionLogica(): ExpresionLogica?{
+        if(tokenActual.categoria == Categoria.PARENTESIS_IZQ){
+            obtenerSiguienteToken()
+
+            val exp1 = esExpresionLogica()
+
+            if(exp1 != null){
+                if(tokenActual.categoria == Categoria.PARENTESIS_DER){
+                    obtenerSiguienteToken()
+                    if(tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_DIVISION ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_RESTA ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_SUMA ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_MODULO ||
+                        tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_MULTIPLICACION){
+                        val operador = tokenActual;
+                        obtenerSiguienteToken()
+                        val exp2 = esExpresionLogica()
+                        if(exp2 != null){
+                            return ExpresionLogica(exp1, operador, exp2)
+                        }
+                    }else{
+                        return ExpresionLogica(exp1)
+                    }
+                }
+            }
+        }else{
+            val valor = esExpresionRelacional()
+            if(valor != null){
+                obtenerSiguienteToken()
+
+                if(tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_DIVISION ||
+                    tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_RESTA ||
+                    tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_SUMA ||
+                    tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_MODULO ||
+                    tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_MULTIPLICACION){
+                    val operador = tokenActual;
+                    obtenerSiguienteToken()
+                    val exp2 = esExpresionLogica()
+                    if(exp2 != null){
+                        return ExpresionLogica(valor, operador, exp2)
+                    }
+                }else{
+                    return ExpresionLogica(valor)
+                }
+
+            }
+        }
         return null
     }
     /**
      *<ListaParametros> ::= "("<Parametro>  [“,” <ListaParametros> ] ")"
      */
     fun esListaParametros(): ArrayList<Parametro>{
-        var listaParametros = ArrayList<Parametro>()
-        if(tokenActual.categoria == Categoria.PARENTESIS_IZQ) {
-            var parametro = esParametro() //Agregar sperador
+        var listaParametros : ArrayList<Parametro> = ArrayList()
+        print("\n"+tokenActual.categoria+" - "+tokenActual.lexema+"\n")
+            obtenerSiguienteToken()
+        print("\n"+tokenActual.categoria+" - "+tokenActual.lexema+"\n")
+
+        var parametro = esParametro() //Agregar sperador
+        print("\nasdasdaszzzz2312"+parametro)
             while (parametro != null) {
                 listaParametros.add(parametro)
+                obtenerSiguienteToken()
+                print("\n"+tokenActual.categoria+" - "+tokenActual.lexema+"\n")
                 if (tokenActual.lexema == ",") { //Hay que hacerlo con categoria.coma
                     obtenerSiguienteToken()
                     parametro = esParametro()
                 } else {
-                    if(tokenActual.categoria != Categoria.PARENTESIS_DER){
-                        reportarError("Falta una coma en la lista de parametros)")
-                    }
+                    parametro = null
                      return listaParametros
                 }
-            }
-            if(tokenActual.categoria != Categoria.PARENTESIS_DER){
-                reportarError("Falta el parentesis de cierre en la lista de parametros")
+
             }
 
-        }
+
+
         return listaParametros
     }
 
@@ -586,6 +710,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
      */
     fun esParametro(): Parametro?{
         var tipoDato = esTipoDato()
+        obtenerSiguienteToken()
         if(tipoDato != null) {
             if (tokenActual.lexema == ":") { //Hay que hacerlo con categoria.dosPuntos
                 obtenerSiguienteToken()
