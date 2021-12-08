@@ -95,7 +95,7 @@ class AnalizadorLexico(var codigoFuente: String) {
                 hacerBT(posicionInicial, filaInicial, columnaInicial)
                 return false
             } else {
-                
+                reportarError("despues de # se espera un digito")
                 return false
             }
             almacenarToken(lexema, Categoria.ENTERO, filaInicial, columnaInicial)
@@ -141,6 +141,7 @@ class AnalizadorLexico(var codigoFuente: String) {
                     obtenerSiguienteCaracter()
                 }
             } else {
+                reportarError("despues de . en un decimal se espera un digito")
                 return false
             }
 
@@ -161,14 +162,20 @@ class AnalizadorLexico(var codigoFuente: String) {
             lexema += caracterActual
             obtenerSiguienteCaracter()
             var contador = 0
-            while ((caracterActual.isDigit() || caracterActual.isLetter() || caracterActual == '_') && contador <= 10) {
+            while ((caracterActual.isDigit() || caracterActual.isLetter() || caracterActual == '_')) {
                 contador++
                 lexema += caracterActual
                 obtenerSiguienteCaracter()
             }
+            if(contador<=10){
+                almacenarToken(lexema, Categoria.IDENTIFICADOR, filaInicial, columnaInicial)
+                return true
+            }
+            else{
+                reportarError("Un identificador solo puede tener maximo 10 caracteres")
+                return false
+            }
 
-            almacenarToken(lexema, Categoria.IDENTIFICADOR, filaInicial, columnaInicial)
-            return true
         }
         return false
     }

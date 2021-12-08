@@ -12,4 +12,5 @@ class Impresion(var expresion: Expresion?, var identificador: Token?) : Sentenci
         root.children.add(TreeItem("Nombre "+identificador?.lexema))
         return root
     }
+
 }
