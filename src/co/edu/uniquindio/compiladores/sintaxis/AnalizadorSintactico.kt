@@ -54,7 +54,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
                                 obtenerSiguienteToken()
                                 var listaSencias = esListaSentencias()
                                 if(listaSencias.size > 0){
-                                    obtenerSiguienteToken()
+                                  //  obtenerSiguienteToken()
                                 }
                                 if (tokenActual.categoria == Categoria.LLAVE_DER) {
                                     obtenerSiguienteToken()
@@ -80,6 +80,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
         while(funcion != null){
             listaFunciones.add(funcion)
             funcion = esFuncion()
+      //      obtenerSiguienteToken()
         }
         return listaFunciones
     }
