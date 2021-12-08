@@ -31,8 +31,6 @@ class controlador {
         var sintatico = AnalizadorSintactico(lexico.listaTokens)
 
         arbolVisual.root = sintatico.esUnidadDeCompilacion()?.getArbolVisual()
-        println(sintatico.esUnidadDeCompilacion()?.getArbolVisual())
-        println(sintatico.esUnidadDeCompilacion())
 
     }
 

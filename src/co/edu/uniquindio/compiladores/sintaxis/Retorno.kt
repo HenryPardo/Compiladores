@@ -5,7 +5,7 @@ import javafx.scene.control.TreeItem
 class Retorno(var expresion: Expresion?) : Sentencia() {
     override fun getArbolVisual(): TreeItem<String>
     {
-        var root = TreeItem("Sentencia")
+        var root = TreeItem("Retorno ")
         if(expresion != null){
             root.children.add(expresion?.getArbolVisual())
         }
