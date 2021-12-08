@@ -1,11 +1,13 @@
 package co.edu.uniquindio.compiladores.sintaxis
 
+import co.edu.uniquindio.compiladores.lexico.Error
+import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
 
 class CicloFor(var asignacion: Asignacion,var expresionLogica: ExpresionLogica,
                var incremento: Incremento?, var decremento: Decremento?, var sentencias: ArrayList<Sentencia>) : Sentencia() {
     override fun getArbolVisual(): TreeItem<String> {
-        var root = TreeItem("CicloWhile")
+        var root = TreeItem("CicloFor") // decia ciclo WHILE
         root.children.add(asignacion.getArbolVisual())
         root.children.add(expresionLogica.getArbolVisual())
         root.children.add(incremento?.getArbolVisual())
@@ -19,6 +21,11 @@ class CicloFor(var asignacion: Asignacion,var expresionLogica: ExpresionLogica,
             }
         }
         return root
+    }
 
+    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+        for ( s in sentencias){
+            s.llenarTablaSimbolos(tablaSimbolos, listaErrores, ambito)
+        }
     }
 }
