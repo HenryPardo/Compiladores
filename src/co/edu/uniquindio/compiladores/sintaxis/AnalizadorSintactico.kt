@@ -54,7 +54,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
                                 obtenerSiguienteToken()
                                 var listaSencias = esListaSentencias()
                                 if(listaSencias.size > 0){
-                                    obtenerSiguienteToken()
+                                  //  obtenerSiguienteToken()
                                 }
                                 if (tokenActual.categoria == Categoria.LLAVE_DER) {
                                     obtenerSiguienteToken()
@@ -80,6 +80,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
         while(funcion != null){
             listaFunciones.add(funcion)
             funcion = esFuncion()
+      //      obtenerSiguienteToken()
         }
         return listaFunciones
     }
@@ -121,50 +122,6 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
                 if (tokenActual.categoria == Categoria.IDENTIFICADOR) {
                     var identificador = tokenActual
                     return Variable(tipoDato, identificador)
-                }
-            }
-        }
-        return null
-    }
-    /**
-     * <Arreglo> ::= {} <TipoDato> : identificador = "[" <Expresion>[,<Expresion>] "]"
-     */
-    fun esArreglo(): Arreglo?{
-        if(tokenActual.categoria == Categoria.CORCHETE_IZQ){
-            obtenerSiguienteToken()
-            if(tokenActual.categoria == Categoria.CORCHETE_DER){
-                obtenerSiguienteToken();
-                var variable = esVariable()
-                if(variable != null){
-                    obtenerSiguienteToken()
-                    if(tokenActual.categoria == Categoria.OPERADOR_RELACIONAL_IGUAL){
-                        obtenerSiguienteToken()
-                        if(tokenActual.categoria == Categoria.LLAVE_IZQ){
-                            obtenerSiguienteToken()
-                            var expresion : Expresion?;
-                            var expresiones = ArrayList<Expresion>()
-                            do{
-                                expresion = esExpresion()
-                                if (expresion != null) {
-                                    expresiones.add(expresion)
-                                }
-                                if(tokenActual.categoria == Categoria.COMA){
-                                    obtenerSiguienteToken()
-                                }else if(tokenActual.categoria == Categoria.LLAVE_DER){
-                                    expresion = null;
-                                }else{
-                                    return null
-                                }
-                            }while(expresion != null);
-
-                            if(tokenActual.categoria == Categoria.LLAVE_DER){
-                                return Arreglo(variable.nombre,variable.tipoDato,expresiones)
-                            }
-                        }
-
-                    }else{
-                        return Arreglo(variable.nombre,variable.tipoDato,ArrayList<Expresion>())
-                    }
                 }
             }
         }
@@ -228,11 +185,6 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
         if(sentencia != null){
             return sentencia
         }
-        sentencia = esArreglo()
-        if(sentencia != null){
-            return sentencia
-        }
-
         return sentencia
     }
 
@@ -554,7 +506,7 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
         if(expresion != null){
             return expresion
         }
-       expresion = esExpresionCadena()
+//    expresion = esExpresionCadena()
         if(expresion != null){
             return expresion
         }
@@ -566,23 +518,26 @@ class AnalizadorSintactico (var listaTokens:ArrayList<Token> ) {
      * <ExpresionCadena> ::= cadenaDeCaracteres ["^"<Expresion> ] | <Expresion> “^” cadenaCaracteres
      */
     fun esExpresionCadena(): ExpresionCadena?{
-            if(tokenActual.categoria == Categoria.CADENA){
-                val valor = tokenActual
-                if(valor != null){
+        if(tokenActual.categoria == Categoria.CADENA){
+            var caracteres = tokenActual
+            obtenerSiguienteToken()
+            if(tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_SUMA) {
+                var expresion = esExpresion()
+                return ExpresionCadena(caracteres, expresion)
+            }
+        }else{
+            var expresion = esExpresion()
+            if(expresion != null){
+                obtenerSiguienteToken()
+                if(tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_SUMA) {
                     obtenerSiguienteToken()
-                    if(tokenActual.categoria == Categoria.OPERADOR_ARITMETICO_SUMA){
-                        obtenerSiguienteToken()
-                        val exp2 = esExpresion()
-                        if(exp2 != null){
-                            return ExpresionCadena(valor,exp2)
-                        }
-                    }else{
-                        return ExpresionCadena(valor,null)
+                    if(tokenActual.categoria == Categoria.CADENA) {
+                        var caracteres = tokenActual
+                        return ExpresionCadena(caracteres, expresion)
                     }
-
                 }
             }
-
+        }
         return null
     }
 

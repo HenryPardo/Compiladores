@@ -12,4 +12,14 @@ var segundaExpresion: ExpresionAritmetica): Expresion() {
         root.children.add(segundaExpresion.getArbolVisual())
         return root
     }
+
+    override fun getJavaCode(): String {
+
+        if (primeraExpresion != null && segundaExpresion != null)
+        {
+            return primeraExpresion.getJavaCode()+operadorRelacional.getJavaCode()+segundaExpresion.getJavaCode()
+        }else{
+            return valorLogico.getJavaCode()
+        }
+    }
 }

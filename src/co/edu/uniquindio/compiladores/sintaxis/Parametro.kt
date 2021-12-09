@@ -5,11 +5,19 @@ import javafx.scene.control.TreeItem
 
 class Parametro(var tipoDato: Token, var identificador: Token) {
 
+    override fun toString(): String {
+        return "Parametro(identificador = $identificador, tipoDato=$tipoDato)"
+    }
+
     fun getArbolVisual(): TreeItem<String>
     {
         var root = TreeItem("Parametro")
         root.children.add(TreeItem("Tipo dato : "+tipoDato.lexema))
         root.children.add(TreeItem("Nombre : "+identificador.lexema))
         return root
+    }
+
+    fun getJavaCode():String{
+        return tipoDato.getJavaCode()+" "+identificador.getJavaCode()
     }
 }

@@ -11,4 +11,8 @@ class Retorno(var expresion: Expresion?) : Sentencia() {
         }
         return root
     }
+
+    override fun getJavaCode(): String {
+        return "return " + expresion!!.getJavaCode()+";"
+    }
 }
