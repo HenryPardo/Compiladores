@@ -12,4 +12,5 @@ class Parametro(var tipoDato: Token, var identificador: Token) {
         root.children.add(TreeItem("Nombre : "+identificador.lexema))
         return root
     }
+
 }

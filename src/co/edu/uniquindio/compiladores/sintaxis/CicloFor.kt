@@ -28,4 +28,11 @@ class CicloFor(var asignacion: Asignacion,var expresionLogica: ExpresionLogica,
             s.llenarTablaSimbolos(tablaSimbolos, listaErrores, ambito)
         }
     }
+
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+        expresionLogica.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+        for( s in sentencias){
+            s.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+        }
+    }
 }

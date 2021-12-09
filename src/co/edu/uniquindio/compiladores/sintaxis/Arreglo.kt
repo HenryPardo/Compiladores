@@ -5,7 +5,7 @@ import co.edu.uniquindio.compiladores.lexico.Token
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
 
-class Arreglo(var nombre: Token, var tipoDato : Token, var listaExpresiones:ArrayList<Expresion>)  : Sentencia() {
+class Arreglo (var nombre: Token, var tipoDato : Token, var listaExpresiones:ArrayList<Expresion>)  : Sentencia() {
     override fun getArbolVisual() : TreeItem<String>{
         val raiz = TreeItem(" Arreglo ")
         raiz.children.add(TreeItem("Identificador "+nombre.lexema +" tipoDato "+tipoDato.lexema))
@@ -30,8 +30,10 @@ class Arreglo(var nombre: Token, var tipoDato : Token, var listaExpresiones:Arra
     override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
 
         for (e in listaExpresiones){
-            if(e.obtenerTipo(tablaSimbolos, ambito) !=tipoDato.lexema){
-                listaErrores.add(Error("El tipo de dato de la expresion no coincide con el tipo de dato del arreglo" , nombre.fila,nombre.columna))
+            e!!.analizarSemantica(tablaSimbolos,listaErrores, ambito)
+            var tipo = e.obtenerTipo(tablaSimbolos, ambito, listaErrores)
+            if( tipo !=tipoDato.lexema){
+                listaErrores.add(Error("El tipo de dato de la expresion ($tipo) no coincide con el tipo de dato del arreglo(${tipoDato.lexema})}" , nombre.fila,nombre.columna))
             }
         }
     }

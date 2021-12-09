@@ -38,4 +38,14 @@ class Decision(var expresionLogica: ExpresionLogica, var listaSentenciasSI: Arra
             }
         }
     }
+
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+        expresionLogica.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+        for( s in listaSentenciasSI){
+            s.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+        }
+        for( n in listaSentenciasNO){
+            n.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.compiladores.sintaxis
 
+import co.edu.uniquindio.compiladores.lexico.Error
 import co.edu.uniquindio.compiladores.lexico.Token
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
@@ -62,7 +63,20 @@ class ExpresionLogica() :Expresion() {
         return root
     }
 
-    override fun obtenerTipo(tablaSimbolos: TablaSimbolos, ambito: String): String {
-        return "DATO LOGICO"
+    override fun obtenerTipo(tablaSimbolos: TablaSimbolos, ambito: String, listaErrores: ArrayList<Error>): String {
+        return "boolean"
+    }
+
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+        if (valor != null){
+            valor!!.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+        }
+        else if(exp1 != null){
+            exp1!!.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+        }
+        else if(exp1 != null && exp2 != null){
+            exp1!!.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+            exp2!!.analizarSemantica(tablaSimbolos, listaErrores, ambito)
+        }
     }
 }

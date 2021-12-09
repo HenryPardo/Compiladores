@@ -1,7 +1,11 @@
 package co.edu.uniquindio.compiladores.sintaxis
 
+import co.edu.uniquindio.compiladores.lexico.Error
 import co.edu.uniquindio.compiladores.lexico.Token
+import co.edu.uniquindio.compiladores.semantica.Simbolo
+import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
+
 
 class InvocacionFuncion(var identificador:Token,var listaArgumentos: ArrayList<ListaArgumentos>?) : Sentencia() {
     override fun getArbolVisual(): TreeItem<String> {
@@ -13,5 +17,24 @@ class InvocacionFuncion(var identificador:Token,var listaArgumentos: ArrayList<L
             }
         }
         return root
+    }
+
+    fun obtenerTiposArgumentos(tablaSimbolos: TablaSimbolos,listaErrores: ArrayList<Error>,ambito:String):ArrayList<String>{
+        var listaArgs = ArrayList<String>()
+        for (a in listaArgumentos!!){
+           var s = tablaSimbolos.buscarSimboloValor(a.identificador.lexema, ambito)
+            if(s != null){
+                listaArgs.add(s.tipo)
+            }
+        }
+        return listaArgs
+    }
+
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+        var listaTiposArgs = obtenerTiposArgumentos(tablaSimbolos,listaErrores,ambito)
+        var s = tablaSimbolos.buscarSimboloFuncion(identificador.lexema,listaTiposArgs)
+        if(s==null){
+            listaErrores.add(Error("la funcion ${identificador.lexema}(${listaTiposArgs}) no existe", identificador.fila,identificador.columna))
+        }
     }
 }

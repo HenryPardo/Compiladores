@@ -1,6 +1,6 @@
 package co.edu.uniquindio.compiladores.semantica
 
-class Simbolo {
+class Simbolo (){
 
     var nombre: String = ""
     var tipo: String = ""
@@ -21,7 +21,7 @@ class Simbolo {
     }
 
     /**
-     * constructor para crear un simbolo de tipo metodo
+     * constructor para crear un simbolo de tipo funcion
      */
     constructor( nombre: String, tipoRetorno: String, ambito: String, tiposParametros : ArrayList<String>):this(){
         this.nombre = nombre
@@ -29,8 +29,6 @@ class Simbolo {
         this.ambito = ambito
         this.tiposParametros = tiposParametros
     }
-
-    constructor()
 
     override fun toString(): String {
         if(tiposParametros == null){
@@ -40,6 +38,4 @@ class Simbolo {
             return "Simbolo(nombre='$nombre', tipo='$tipo', ambito='$ambito', fila=$fila, columna=$columna, tiposParametros=$tiposParametros)"
         }
     }
-
-
 }

@@ -25,7 +25,6 @@ class TablaSimbolos (var listaErrores : ArrayList<Error>){
      */
     fun guardarSimboloFuncion (nombre: String, tipoRetorno: String, ambito: String, tiposParametros : ArrayList<String>, fila: Int, columna: Int){
         val s = buscarSimboloFuncion(nombre,tiposParametros)
-
         if(s == null){
             listaSimbolos.add(Simbolo(nombre, tipoRetorno, ambito, tiposParametros))
         }
@@ -39,7 +38,7 @@ class TablaSimbolos (var listaErrores : ArrayList<Error>){
      */
     fun buscarSimboloValor (nombre:String, ambito: String) : Simbolo? {
         for (s in listaSimbolos){
-            if(s.tiposParametros != null) {
+            if(s.ambito != null) {
                 if (s.nombre == nombre && s.ambito == ambito) {
                     return s
                 }
@@ -50,7 +49,7 @@ class TablaSimbolos (var listaErrores : ArrayList<Error>){
     /**
      * permite buscar una funcion dentro de la tabla de simbolos
      */
-    fun buscarSimboloFuncion (nombre:String,tiposParametros : ArrayList<String>, ) : Simbolo? {
+    fun buscarSimboloFuncion (nombre:String, tiposParametros: ArrayList<String> ) : Simbolo? {
         for (s in listaSimbolos){
             if(s.tiposParametros != null){
                 if( s.nombre == nombre && s.tiposParametros == tiposParametros){

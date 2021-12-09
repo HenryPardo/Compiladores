@@ -67,6 +67,8 @@ class controlador {
                     val semantica = AnalizadorSemantico(unidadCompilacion!!)
                     semantica.llenarTablaSimbolos()
                     println( semantica.tablaSimbolos)
+
+                    semantica.analizarSemantica()
                     println( semantica.listaErrores)
 
                 }
