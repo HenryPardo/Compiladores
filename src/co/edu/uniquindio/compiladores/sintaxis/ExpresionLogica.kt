@@ -60,4 +60,14 @@ class ExpresionLogica() :Expresion() {
         }
         return root
     }
+
+    override fun getJavaCode(): String {
+        return if( exp1 != null && exp2 != null){
+            exp1!!.getJavaCode()+ operador!!.getJavaCode()+ valor!!.getJavaCode()+ exp2!!.getJavaCode()
+        }else if (operador != null && exp1 != null && exp2 == null){
+            operador!!.getJavaCode()+ exp1!!.getJavaCode()
+        }else{
+            exp1!!.getJavaCode()
+        }
+    }
 }

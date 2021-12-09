@@ -57,4 +57,19 @@ class ExpresionAritmetica() : Expresion() {
         }
         return root
     }
+
+    override fun getJavaCode(): String {
+
+        if(exp1 != null && operador != null && exp2 != null){
+            return  "("+ exp1!!.getJavaCode()+")"+ operador!!.getJavaCode()+ exp2!!.getJavaCode()
+        }else if (exp1 != null && operador == null && exp2 == null && valor == null){
+            return "("+ exp1!!.getJavaCode()+")"
+        }else if (valor != null && operador != null && exp1 != null){
+            return valor!!.getJavaCode()+ operador!!.getJavaCode()+ exp1!!.getJavaCode()
+        }else{
+            return valor!!.getJavaCode()
+        }
+
+
+    }
 }

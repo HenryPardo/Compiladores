@@ -9,4 +9,8 @@ open class Expresion() {
         var root = TreeItem("Expresion")
         return root
     }
+
+    open fun getJavaCode():String{
+        return ""
+    }
 }

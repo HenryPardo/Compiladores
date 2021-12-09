@@ -15,4 +15,13 @@ class ExpresionCadena(var cadena: Token,var expresion: Expresion?) : Expresion()
         return root
     }
 
+    override fun getJavaCode(): String {
+        var codigo = cadena.getJavaCode()
+        if (expresion != null)
+        {
+            codigo += "+"+ expresion!!.getJavaCode()
+        }
+        return codigo
+    }
+
 }
