@@ -1,6 +1,7 @@
 package co.edu.uniquindio.compiladores.sintaxis
 
 import co.edu.uniquindio.compiladores.lexico.Error
+import co.edu.uniquindio.compiladores.semantica.Ambito
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
 import kotlin.math.exp
@@ -20,13 +21,13 @@ class CicloWhile(var expresionLogica: ExpresionLogica, var sentencias: ArrayList
         return root
     }
 
-    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         for ( s in sentencias){
             s.llenarTablaSimbolos(tablaSimbolos, listaErrores, ambito)
         }
     }
 
-    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         /*expresionLogica.analizarSemantica(tablaSimbolos, listaErrores, ambito)
         for( s in sentencias){
             s.analizarSemantica(tablaSimbolos, listaErrores, ambito)

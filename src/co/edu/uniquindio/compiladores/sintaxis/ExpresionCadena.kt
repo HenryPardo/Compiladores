@@ -2,6 +2,7 @@ package co.edu.uniquindio.compiladores.sintaxis
 
 import co.edu.uniquindio.compiladores.lexico.Error
 import co.edu.uniquindio.compiladores.lexico.Token
+import co.edu.uniquindio.compiladores.semantica.Ambito
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
 
@@ -17,11 +18,11 @@ class ExpresionCadena(var cadena: Token,var expresion: Expresion?) : Expresion()
         return root
     }
 
-    override fun obtenerTipo(tablaSimbolos: TablaSimbolos, ambito: String, listaErrores: ArrayList<Error>):String {
+    override fun obtenerTipo(tablaSimbolos: TablaSimbolos, ambito: Ambito, listaErrores: ArrayList<Error>): String {
         return "string"
     }
 
-    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         if(expresion != null){
             expresion!!.analizarSemantica(tablaSimbolos,listaErrores,ambito)
         }

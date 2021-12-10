@@ -2,6 +2,7 @@ package co.edu.uniquindio.compiladores.sintaxis
 
 import co.edu.uniquindio.compiladores.lexico.Error
 import co.edu.uniquindio.compiladores.lexico.Token
+import co.edu.uniquindio.compiladores.semantica.Ambito
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
 
@@ -37,21 +38,21 @@ class Funcion(var tipoRetorno:Token,var identificador:Token,
         return lista
     }
 
-    fun llenarTablaSimbolos(tablaSimbolos : TablaSimbolos,listaErrores: ArrayList<Error>, ambito : String){
+    fun llenarTablaSimbolos(tablaSimbolos : TablaSimbolos,listaErrores: ArrayList<Error>, ambito : Ambito){
         tablaSimbolos.guardarSimboloFuncion(identificador.lexema, tipoRetorno.lexema,ambito,obtenerTipoParametros(),identificador.fila, identificador.columna )
 
         for (p in listaParametros){
-            tablaSimbolos.guardarSimboloValor( p.identificador.lexema, p.tipoDato.lexema, identificador.lexema, p.identificador.fila, p.identificador.columna )
+            tablaSimbolos.guardarSimboloValor( p.identificador.lexema, p.tipoDato.lexema, Ambito(identificador.lexema,identificador.fila), p.identificador.fila, p.identificador.columna )
         }
 
         for (s in listaSentencias){
-            s.llenarTablaSimbolos(tablaSimbolos, listaErrores, identificador.lexema )
+            s.llenarTablaSimbolos(tablaSimbolos, listaErrores, Ambito(identificador.lexema,identificador.fila) )
         }
     }
 
     fun analizarSemantica(tablaSimbolos : TablaSimbolos,listaErrores: ArrayList<Error>){
         for (s in listaSentencias){
-            s.analizarSemantica(tablaSimbolos, listaErrores, identificador.lexema )
+            s.analizarSemantica(tablaSimbolos, listaErrores, Ambito(identificador.lexema,identificador.fila) )
         }
     }
 }

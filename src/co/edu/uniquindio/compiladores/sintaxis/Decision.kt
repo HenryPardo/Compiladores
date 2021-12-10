@@ -1,6 +1,7 @@
 package co.edu.uniquindio.compiladores.sintaxis
 
 import co.edu.uniquindio.compiladores.lexico.Error
+import co.edu.uniquindio.compiladores.semantica.Ambito
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
 
@@ -28,7 +29,7 @@ class Decision(var expresionLogica: ExpresionLogica, var listaSentenciasSI: Arra
         return root
     }
 
-    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         for(s in listaSentenciasSI){
             s.llenarTablaSimbolos(tablaSimbolos,listaErrores,ambito)
         }
@@ -39,7 +40,7 @@ class Decision(var expresionLogica: ExpresionLogica, var listaSentenciasSI: Arra
         }
     }
 
-    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         expresionLogica.analizarSemantica(tablaSimbolos, listaErrores, ambito)
         for( s in listaSentenciasSI){
             s.analizarSemantica(tablaSimbolos, listaErrores, ambito)

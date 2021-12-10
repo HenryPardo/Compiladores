@@ -2,6 +2,7 @@ package co.edu.uniquindio.compiladores.sintaxis
 
 import co.edu.uniquindio.compiladores.lexico.Error
 import co.edu.uniquindio.compiladores.lexico.Token
+import co.edu.uniquindio.compiladores.semantica.Ambito
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
 
@@ -23,11 +24,11 @@ class Arreglo (var nombre: Token, var tipoDato : Token, var listaExpresiones:Arr
         return "Arreglo(nombre=$nombre, tipoDato=$tipoDato, listaExpresiones=$listaExpresiones)"
     }
 
-    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         tablaSimbolos.guardarSimboloValor(nombre.lexema, tipoDato.lexema, ambito, nombre.fila, nombre.columna)
     }
 
-    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
 
         for (e in listaExpresiones){
             e!!.analizarSemantica(tablaSimbolos,listaErrores, ambito)

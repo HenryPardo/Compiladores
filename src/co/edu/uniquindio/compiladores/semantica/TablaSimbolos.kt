@@ -7,7 +7,7 @@ class TablaSimbolos (var listaErrores : ArrayList<Error>){
     /**
      * Permite guardar un simbolo  que representa una variable, una constante, un parametro o un arreglo
      */
-    fun guardarSimboloValor (nombre: String, tipoDato: String, ambito: String, fila: Int, columna: Int){
+    fun guardarSimboloValor (nombre: String, tipoDato: String, ambito: Ambito, fila: Int, columna: Int){
 
         val s = buscarSimboloValor(nombre,ambito)
 
@@ -23,10 +23,10 @@ class TablaSimbolos (var listaErrores : ArrayList<Error>){
     /**
      * Permite guardar un simbolo  que representa una funcion
      */
-    fun guardarSimboloFuncion (nombre: String, tipoRetorno: String, ambito: String, tiposParametros : ArrayList<String>, fila: Int, columna: Int){
+    fun guardarSimboloFuncion (nombre: String, tipoRetorno: String, ambito: Ambito, tiposParametros : ArrayList<String>, fila: Int, columna: Int){
         val s = buscarSimboloFuncion(nombre,tiposParametros)
         if(s == null){
-            listaSimbolos.add(Simbolo(nombre, tipoRetorno, ambito, tiposParametros))
+            listaSimbolos.add(Simbolo(nombre, tipoRetorno, ambito, tiposParametros, fila))
         }
         else{
             listaErrores.add(Error ("la funcion $nombre ya existe dentro del ambito $ambito",fila,columna))
@@ -36,10 +36,10 @@ class TablaSimbolos (var listaErrores : ArrayList<Error>){
     /**
      * permite buscar un valor dentro de la tabla de simbolos
      */
-    fun buscarSimboloValor (nombre:String, ambito: String) : Simbolo? {
+    fun buscarSimboloValor (nombre:String, ambito: Ambito) : Simbolo? {
         for (s in listaSimbolos){
             if(s.ambito != null) {
-                if (s.nombre == nombre && s.ambito == ambito) {
+                if (s.nombre == nombre && s.ambito?.nombre == ambito.nombre && s.ambito?.num == ambito.num ) {
                     return s
                 }
             }
@@ -55,6 +55,15 @@ class TablaSimbolos (var listaErrores : ArrayList<Error>){
                 if( s.nombre == nombre && s.tiposParametros == tiposParametros){
                     return s
                 }
+            }
+        }
+        return null
+    }
+
+    fun buscarSimboloFuncion (ambito: Ambito): Simbolo?{
+        for(s in listaSimbolos){
+            if(s.nombre == ambito.nombre && s.fila == ambito.num){
+                return s
             }
         }
         return null

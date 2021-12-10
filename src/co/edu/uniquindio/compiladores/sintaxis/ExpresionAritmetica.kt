@@ -3,6 +3,7 @@ package co.edu.uniquindio.compiladores.sintaxis
 import co.edu.uniquindio.compiladores.lexico.Categoria
 import co.edu.uniquindio.compiladores.lexico.Error
 import co.edu.uniquindio.compiladores.lexico.Token
+import co.edu.uniquindio.compiladores.semantica.Ambito
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 import javafx.scene.control.TreeItem
 
@@ -64,7 +65,7 @@ class ExpresionAritmetica() : Expresion() {
         return root
     }
 
-    override fun obtenerTipo(tablaSimbolos: TablaSimbolos, ambito: String, listaErrores: ArrayList<Error>): String {
+    override fun obtenerTipo(tablaSimbolos: TablaSimbolos, ambito: Ambito, listaErrores: ArrayList<Error>): String {
         if(exp1!=null && exp2 != null && valor == null){
             var tipo1 = exp1!!.obtenerTipo(tablaSimbolos,ambito, listaErrores)
             var tipo2 = exp2!!.obtenerTipo(tablaSimbolos,ambito, listaErrores)
@@ -132,7 +133,7 @@ class ExpresionAritmetica() : Expresion() {
         return ""
     }
 
-    fun obtenerTipoCampo(tablaSimbolos: TablaSimbolos, ambito: String, valorNum: ValorNumerico,listaErrores: ArrayList<Error>):String{
+    fun obtenerTipoCampo(tablaSimbolos: TablaSimbolos, ambito: Ambito, valorNum: ValorNumerico,listaErrores: ArrayList<Error>):String{
         if(valorNum.numero.categoria == Categoria.ENTERO){
             return "int"
         }
@@ -151,7 +152,7 @@ class ExpresionAritmetica() : Expresion() {
         return ""
     }
 
-    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         if (valor != null){
             if(valor!!.numero.categoria == Categoria.IDENTIFICADOR){
                 var simbolo = tablaSimbolos.buscarSimboloValor(valor!!.numero.lexema,ambito)

@@ -3,6 +3,7 @@ package co.edu.uniquindio.compiladores.sintaxis
 import co.edu.uniquindio.compiladores.lexico.Categoria
 import co.edu.uniquindio.compiladores.lexico.Error
 import co.edu.uniquindio.compiladores.lexico.Token
+import co.edu.uniquindio.compiladores.semantica.Ambito
 import co.edu.uniquindio.compiladores.semantica.Simbolo
 import co.edu.uniquindio.compiladores.semantica.TablaSimbolos
 
@@ -29,7 +30,7 @@ class Asignacion(var variable: Variable?,var identificador : Token?, var expresi
         return root
     }
 
-    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun analizarSemantica(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         var s : Simbolo? = null
         if(variable == null){
             s = tablaSimbolos.buscarSimboloValor(identificador!!.lexema,ambito)
@@ -60,7 +61,7 @@ class Asignacion(var variable: Variable?,var identificador : Token?, var expresi
         }
     }
 
-    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: String) {
+    override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         if (variable != null){
             tablaSimbolos.guardarSimboloValor(variable!!.nombre.lexema,variable!!.tipoDato.lexema,ambito,variable!!.nombre.fila,variable!!.nombre.columna)
         }
