@@ -38,4 +38,19 @@ class Arreglo (var nombre: Token, var tipoDato : Token, var listaExpresiones:Arr
             }
         }
     }
+
+    override fun getJavaCode(): String {
+        var codigo = tipoDato.getJavaCode() + "[] "+nombre.getJavaCode()
+
+        if (listaExpresiones != null){
+            codigo += "=["
+            for (a in listaExpresiones){
+                codigo += a.getJavaCode() + ","
+            }
+            codigo = codigo.substring(0,codigo.length-1)
+            codigo += "]"
+        }
+        codigo += ";"
+        return codigo
+    }
 }

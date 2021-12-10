@@ -6,7 +6,7 @@
         <compilerSettings />
         <compilerArguments>
           <option name="languageVersion" value="1.6" />
-          <option name="apiVersion" value="1.5" />
+          <option name="apiVersion" value="1.6" />
           <option name="pluginOptions">
             <array />
           </option>
@@ -34,26 +34,26 @@
     <orderEntry type="module-library" exported="">
       <library>
         <ANNOTATIONS>
-          <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+          <root url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" />
         </ANNOTATIONS>
         <CLASSES>
-          <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
-          <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+          <root url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" />
+          <root url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" />
         </CLASSES>
         <JAVADOC>
-          <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+          <root url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" />
         </JAVADOC>
         <NATIVE>
-          <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+          <root url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" />
         </NATIVE>
         <SOURCES>
-          <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
-          <root url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" />
+          <root url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" />
+          <root url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" />
         </SOURCES>
-        <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" />
-        <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" />
-        <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" type="SOURCES" />
-        <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" type="SOURCES" />
+        <jarDirectory url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" type="SOURCES" />
+        <jarDirectory url="file://$MODULE_DIR$/../../openjfx-17.0.0.1_windows-x86_bin-sdk" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -66,6 +66,7 @@
         <jarDirectory url="file://$PATH_TO_FX$" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:17.0.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:17.0.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:17.0.0.1" level="project" />
@@ -80,6 +81,5 @@
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.0-RC" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0-RC" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test:1.6.0-RC" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

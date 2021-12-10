@@ -13,4 +13,8 @@ class Impresion(var expresion: Expresion?, var identificador: Token?) : Sentenci
         return root
     }
 
+    override fun getJavaCode(): String {
+        return "JOptionPane.showMessageDialog(null, "+ expresion!!.getJavaCode()+");"
+    }
+
 }

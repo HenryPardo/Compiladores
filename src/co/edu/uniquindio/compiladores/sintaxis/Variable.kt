@@ -22,4 +22,13 @@ class Variable(var tipoDato: Token, var nombre: Token): Sentencia() {
     override fun llenarTablaSimbolos(tablaSimbolos: TablaSimbolos, listaErrores: ArrayList<Error>, ambito: Ambito) {
         tablaSimbolos.guardarSimboloValor(nombre.lexema,tipoDato.lexema,ambito,nombre.fila,nombre.columna)
     }
+
+    override fun getJavaCode():String{
+
+        return if (tipoDato != null) {
+            tipoDato.getJavaCode()+" "+nombre.getJavaCode()
+        }else{
+            nombre.getJavaCode()
+        }
+    }
 }

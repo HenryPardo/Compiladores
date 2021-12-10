@@ -7,13 +7,12 @@ import javafx.scene.control.TreeItem
 
 class UnidadDeCompilacion(var listaFunciones:ArrayList<Funcion>,var listaVariables:ArrayList<Variable>) {
 
-    fun getArbolVisual():TreeItem<String>
-    {
+    fun getArbolVisual(): TreeItem<String> {
         var root = TreeItem("Unidad de compilacion")
-        for(f in listaFunciones){
+        for (f in listaFunciones) {
             root.children.add(f.getArbolVisual())
         }
-        for(f in listaVariables){
+        for (f in listaVariables) {
             root.children.add(f.getArbolVisual())
         }
         return root
@@ -23,18 +22,25 @@ class UnidadDeCompilacion(var listaFunciones:ArrayList<Funcion>,var listaVariabl
         return "UnidadDeCompilacion(listaFunciones=$listaFunciones, listaVariables=$listaVariables)"
     }
 
-    fun llenarTablaSimbolos(listaErrores: ArrayList<Error>,tablaSimbolos : TablaSimbolos){
-        for (f in listaFunciones){
-            f.llenarTablaSimbolos(tablaSimbolos,listaErrores, Ambito("UnidadCompilacion",-1))
+    fun llenarTablaSimbolos(listaErrores: ArrayList<Error>, tablaSimbolos: TablaSimbolos) {
+        for (f in listaFunciones) {
+            f.llenarTablaSimbolos(tablaSimbolos, listaErrores, Ambito("UnidadCompilacion", -1))
         }
     }
 
-    fun analizarSemantica(listaErrores: ArrayList<Error>,tablaSimbolos : TablaSimbolos){
-        for (f in listaFunciones){
+    fun analizarSemantica(listaErrores: ArrayList<Error>, tablaSimbolos: TablaSimbolos) {
+        for (f in listaFunciones) {
             f.analizarSemantica(tablaSimbolos, listaErrores)
         }
     }
 
+    fun getJavaCode():String{
+        var codigo = "Import javax.swing.JOptionPane; public class Principal{"
 
-
+        for ( f in listaFunciones){
+            codigo += f.getJavaCode()
+        }
+        codigo += "}"
+        return codigo
+    }
 }

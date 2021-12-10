@@ -18,4 +18,8 @@ open class Expresion() {
     open fun obtenerTipo(tablaSimbolos: TablaSimbolos, ambito: Ambito, listaErrores: ArrayList<Error>):String{
         return ""
     }
+
+    open fun getJavaCode():String{
+        return ""
+    }
 }

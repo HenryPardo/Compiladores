@@ -20,4 +20,8 @@ open class Sentencia {
     open fun analizarSemantica(tablaSimbolos : TablaSimbolos,listaErrores: ArrayList<Error>, ambito : Ambito){
 
     }
+
+    open fun getJavaCode():String {
+        return ""
+    }
 }

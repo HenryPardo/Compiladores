@@ -13,4 +13,7 @@ class Parametro(var tipoDato: Token, var identificador: Token) {
         return root
     }
 
+    fun getJavaCode():String{
+        return tipoDato.getJavaCode()+" "+identificador.getJavaCode()
+    }
 }

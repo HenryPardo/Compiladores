@@ -9,4 +9,12 @@ class Decremento(var identificador: Token) : Sentencia() {
         root.children.add(TreeItem("Nombre "+identificador.lexema))
         return root
     }
+
+    override fun getJavaCode(): String {
+        return if (identificador != null) {
+            "--"
+        }else{
+            ""
+        }
+    }
 }

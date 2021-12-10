@@ -86,4 +86,22 @@ class controlador {
         }
 
     }
+
+    @FXML
+    fun traducirCodigo(e: ActionEvent){
+        if(lexico.listaErrores.isEmpty() && sintaxis.listaErrores.isEmpty() && semantica.listaErrores.isEmpty()){
+            val codigo = unidadCompilacion!!.getJavaCode()
+            File("src/Principal.java").writeText(codigo)
+
+            val runtime = Runtime.getRuntime().exec("javac src/Principal.java")
+            runtime.waitFor()
+            Runtime.getRuntime().exec("java Principal", null, File("src"))
+
+        }else{
+            val alerta = Alert(Alert.AlertType.ERROR)
+            alerta.headerText = null
+            alerta.contentText = "El codigo no se puede traducir ya que se encuentran errores"
+            alerta.show()
+        }
+    }
 }

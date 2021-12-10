@@ -55,4 +55,28 @@ class Funcion(var tipoRetorno:Token,var identificador:Token,
             s.analizarSemantica(tablaSimbolos, listaErrores, Ambito(identificador.lexema,identificador.fila) )
         }
     }
+
+    fun getJavaCode():String{
+
+        var codigo = ""
+
+        if (identificador.lexema == "principal"){
+            codigo = "public static void main(String[] args){"
+        }else {
+            codigo = "static" + tipoRetorno.getJavaCode() + " " + identificador.getJavaCode() + " ( "
+            if (listaParametros.isNotEmpty()) {
+                for (p in listaParametros) {
+                    codigo += p.getJavaCode() + ","
+                }
+                codigo = codigo.substring(0, codigo.length - 1)
+
+            }
+            codigo += "){"
+        }
+        for (s in listaSentencias){
+            codigo += s.getJavaCode()
+        }
+        codigo += "}"
+        return codigo
+    }
 }

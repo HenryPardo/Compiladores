@@ -27,4 +27,13 @@ var segundaExpresion: ExpresionAritmetica): Expresion() {
         }
     }
 
+    override fun getJavaCode(): String {
+
+        return if (primeraExpresion != null && segundaExpresion != null) {
+            primeraExpresion.getJavaCode()+operadorRelacional.getJavaCode()+segundaExpresion.getJavaCode()
+        }else{
+            operadorRelacional.getJavaCode()
+        }
+    }
+
 }

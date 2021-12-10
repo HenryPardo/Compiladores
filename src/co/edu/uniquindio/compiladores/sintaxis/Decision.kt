@@ -49,4 +49,21 @@ class Decision(var expresionLogica: ExpresionLogica, var listaSentenciasSI: Arra
             n.analizarSemantica(tablaSimbolos, listaErrores, ambito)
         }
     }
+
+    override fun getJavaCode(): String {
+        var codigo = "if (" +expresionLogica.getJavaCode()+"){"
+        for (s in listaSentenciasSI){
+            codigo += s.getJavaCode()
+        }
+        codigo += "}"
+        if (listaSentenciasNO != null)
+        {
+            codigo += "else("
+            for (s in listaSentenciasNO){
+                codigo += s.getJavaCode()
+            }
+            codigo += "}"
+        }
+        return codigo
+    }
 }

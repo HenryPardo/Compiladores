@@ -36,4 +36,14 @@ class CicloFor(var asignacion: Asignacion,var expresionLogica: ExpresionLogica,
             s.analizarSemantica(tablaSimbolos, listaErrores, ambito)
         }
     }
+
+    override fun getJavaCode(): String {
+        var codigo = "for ("+expresionLogica.getJavaCode()+"){"
+
+        for (s in sentencias){
+            codigo += s.getJavaCode()
+        }
+        codigo += "}"
+        return  codigo
+    }
 }

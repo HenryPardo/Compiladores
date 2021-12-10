@@ -173,5 +173,18 @@ class ExpresionAritmetica() : Expresion() {
             exp2!!.analizarSemantica(tablaSimbolos, listaErrores, ambito)
        }
     }
+
+    override fun getJavaCode(): String {
+
+        return if(exp1 != null && operador != null && exp2 != null){
+            "("+ exp1!!.getJavaCode()+")"+ operador!!.getJavaCode()+ exp2!!.getJavaCode()
+        }else if (exp1 != null && operador == null && exp2 == null && valor == null){
+            "("+ exp1!!.getJavaCode()+")"
+        }else if (valor != null && operador != null && exp1 != null){
+            valor!!.getJavaCode()+ operador!!.getJavaCode()+ exp1!!.getJavaCode()
+        }else{
+            valor!!.getJavaCode()
+        }
+    }
 }
 

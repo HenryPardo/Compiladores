@@ -46,4 +46,14 @@ class CicloWhile(var expresionLogica: ExpresionLogica, var sentencias: ArrayList
             }
         }
     }
+
+    override fun getJavaCode(): String {
+        var codigo = "while ("+expresionLogica.getJavaCode()+"){"
+
+        for (s in sentencias){
+            codigo += s.getJavaCode()
+        }
+        codigo += "}"
+        return  codigo
+    }
 }
